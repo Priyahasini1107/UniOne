@@ -124,3 +124,6 @@ Environment variables use Node.js v20.6+ native `--env-file` support — no `dot
 - [ ] JWT or session-based auth
 - [ ] Module functionality (Academic Resources, Interview Prep, etc.)
 - [ ] REST API endpoints for each module
+
+One platform for academic resources, career preparation, student projects, and campus services.
+ef0fa8700fd18e86c03e5eba4fb90095043b0e91

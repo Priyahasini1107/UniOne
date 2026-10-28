@@ -1,0 +1,293 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   global.css — UniOne Design System
+   
+   Contents:
+     1. CSS Custom Properties (design tokens — colors, spacing, typography)
+     2. CSS Reset / Normalize
+     3. Base styles
+     4. Reusable utility classes (buttons, form controls, badges)
+     5. Scrollbar styling
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── 1. Design Tokens ──────────────────────────────────────────────────── */
+:root {
+  /* Navy Blue Palette (primary brand colors) */
+  --navy-900: #0d1560;    /* Deepest navy */
+  --navy-800: #1a237e;    /* Primary navy — main brand color */
+  --navy-700: #283593;    /* Mid navy */
+  --navy-600: #303f9f;    /* Lighter navy */
+  --navy-500: #3f51b5;    /* Accent indigo */
+  --navy-400: #5c6bc0;    /* Soft indigo */
+  --navy-300: #7986cb;    /* Light indigo */
+  --navy-200: #c5cae9;    /* Very light indigo */
+  --navy-100: #e8eaf6;    /* Tint / background accent */
+  --navy-50:  #f0f2ff;    /* Near-white tint */
+
+  /* Neutral Colors */
+  --white:        #ffffff;
+  --bg:           #f4f5fb;   /* App-wide background */
+  --text:         #1c1c2e;   /* Primary text */
+  --text-body:    #374151;   /* Body / paragraph text */
+  --text-muted:   #6b7280;   /* Secondary / helper text */
+  --text-faint:   #9ca3af;   /* Placeholders */
+  --border:       #e2e8f0;   /* Default border */
+
+  /* Shadows */
+  --shadow-xs: 0 1px 3px  rgba(26, 35, 126, 0.06);
+  --shadow-sm: 0 1px 6px  rgba(26, 35, 126, 0.08);
+  --shadow-md: 0 4px 16px rgba(26, 35, 126, 0.10);
+  --shadow-lg: 0 8px 28px rgba(26, 35, 126, 0.15);
+  --shadow-xl: 0 16px 48px rgba(26, 35, 126, 0.20);
+
+  /* Border Radius */
+  --radius-sm:   6px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
+
+  /* Layout */
+  --sidebar-width:  240px;
+  --topbar-height:  64px;
+
+  /* Typography — system fonts, no external downloads required */
+  --font:      system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Cascadia Code', 'Consolas', 'Fira Mono', monospace;
+
+  /* Font Sizes */
+  --text-xs:   0.875rem;   /*  14px */
+  --text-sm:   1rem;       /*  16px */
+  --text-base: 1rem;       /*  16px */
+  --text-lg:   1.125rem;   /*  18px */
+  --text-xl:   1.3125rem;  /*  21px */
+  --text-2xl:  1.625rem;   /*  26px */
+  --text-3xl:  2rem;       /*  32px */
+  --text-4xl:  2.5rem;     /*  40px */
+  --text-5xl:  3.25rem;    /*  52px */
+  --text-6xl:  4rem;       /*  64px */
+
+  /* Font Weights */
+  --weight-normal:    400;
+  --weight-medium:    500;
+  --weight-semibold:  600;
+  --weight-bold:      700;
+  --weight-extrabold: 800;
+
+  /* Transitions */
+  --ease:            cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition:      all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.4s  cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── 2. CSS Reset ──────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family:  var(--font);
+  font-size:    var(--text-base);
+  color:        var(--text);
+  background:   var(--bg);
+  line-height:  1.65;
+  -webkit-font-smoothing:  antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a    { text-decoration: none; color: inherit; }
+ul, ol { list-style: none; }
+img  { max-width: 100%; display: block; }
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size:   inherit;
+  color:       inherit;
+}
+
+/* Keep longer content readable and prevent narrow layouts from clipping words. */
+button, a, label, p, li, dd, dt, th, td, h1, h2, h3, h4, span {
+  overflow-wrap: anywhere;
+}
+
+input, select, textarea { min-height: 44px; }
+.btn-primary, .btn-secondary, .btn-outline-white, .mod-btn, .fd-btn,
+.auth-submit, .sidebar__nav-item, .sidebar__footer-btn { min-height: 42px; }
+textarea { line-height: 1.55; }
+
+/* ─── 3. Utility — Buttons ──────────────────────────────────────────────── */
+
+/* Solid filled primary button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--navy-500);
+  color: var(--white);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  border: 2px solid transparent;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--navy-700);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active { transform: translateY(0); }
+
+/* Outlined secondary button */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: transparent;
+  color: var(--navy-500);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  border: 2px solid var(--navy-500);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: var(--navy-100);
+  transform: translateY(-2px);
+}
+
+/* White outlined button — for use on dark backgrounds */
+.btn-outline-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: transparent;
+  color: var(--white);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.btn-outline-white:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--white);
+}
+
+/* ─── 4. Utility — Badges ───────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-stage2 {
+  background: var(--navy-100);
+  color: var(--navy-700);
+}
+
+/* ─── 5. Utility — Form Controls ────────────────────────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--text-body);
+}
+
+.form-input {
+  padding: 12px 14px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  color: var(--text);
+  transition: var(--transition-fast);
+  outline: none;
+  width: 100%;
+}
+
+.form-input:focus {
+  border-color: var(--navy-500);
+  box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.15);
+}
+
+.form-input::placeholder { color: var(--text-faint); }
+
+/* Custom styled select dropdown */
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 11px 36px 11px 14px;
+  background: var(--white)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")
+    no-repeat right 12px center;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  color: var(--text);
+  transition: var(--transition-fast);
+  outline: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.form-select:focus {
+  border-color: var(--navy-500);
+  box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.15);
+}
+
+/* ─── 6. Scrollbar Styling ──────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--navy-200);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--navy-300); }
+
+/* ─── 7. Accessibility — Focus Ring ─────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--navy-500);
+  outline-offset: 2px;
+}
